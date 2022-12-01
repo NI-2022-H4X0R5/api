@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon .",
     "start": "node .",
-    "test": "jest src/tests/app.test.js --detectOpenHandles"
+    "test": "jest src/tests/app.test.js --detectOpenHandles --forceExit"
   },
   "repository": {
     "type": "git",
