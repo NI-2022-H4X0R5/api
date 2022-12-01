@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false
             },
+            ageRange: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
             hintLabel: {
                 type: DataTypes.STRING,
                 allowNull: true

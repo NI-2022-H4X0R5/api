@@ -1,4 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize')
+const {encrypt} = require('../tools/encryption');
 
 let sequelize;
 const type = process.env.DB_TYPE || 'sqlite';
@@ -29,11 +30,20 @@ models.Question.hasMany(models.TempCode, {foreignKey: 'questionId', sourceKey: '
 models.Question.hasMany(models.Score, {foreignKey: 'questionId', sourceKey: 'id'});
 models.Game.hasMany(models.Score, {foreignKey: 'gameCode', sourceKey: 'code'});
 
-sequelize.sync({force: true}).then(_ => {
-    console.log('Database synchronized');
-});
-
-module.exports = {
-    models
+const sync = async () => {
+    await sequelize.sync({force: true});
+    await seed();
 }
 
+const seed = () => {
+    return sequelize.sync({force: true}).then(async _ => {
+        return models.User.create({
+            username: "root",
+            password: await encrypt("root")
+        });
+    });
+}
+
+module.exports = {
+    models, sync
+}
