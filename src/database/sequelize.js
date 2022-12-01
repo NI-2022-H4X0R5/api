@@ -1,11 +1,13 @@
 const { Sequelize, DataTypes } = require('sequelize')
 
 let sequelize;
-if(process.env.DB_TYPE === "sqlite"){
+const type = process.env.DB_TYPE || 'sqlite';
+const logging = process.env.DB_LOGGING || false;
+if(type === "sqlite"){
     sequelize = new Sequelize({
         dialect: 'sqlite',
         storage: 'database.db',
-        logging: process.env.DB_LOGGING === "true"
+        logging: logging === "true"
     });
 }else{
     sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
