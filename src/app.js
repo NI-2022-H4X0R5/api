@@ -23,3 +23,6 @@ app.use(({res}) => res.status(404).json({message: "Unknown route"}));
 app.listen(process.env.PORT, process.env.BIND_ADDRESS, () => {
     console.log(`Server started on http://${process.env.BIND_ADDRESS}:${process.env.PORT}`);
 });
+
+// Export app for tests
+module.exports = app;
