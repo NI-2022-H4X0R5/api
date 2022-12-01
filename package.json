@@ -1,0 +1,35 @@
+{
+  "name": "js-api-template",
+  "version": "1.0.0",
+  "description": "A template to create a REST API using express and sequelize",
+  "main": "src/app.js",
+  "scripts": {
+    "dev": "nodemon .",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xen0Xys/JS-API-Template.git"
+  },
+  "author": "Xen0Xys",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Xen0Xys/JS-API-Template/issues"
+  },
+  "homepage": "https://github.com/Xen0Xys/JS-API-Template#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
+    "mariadb": "^3.0.2",
+    "morgan": "^1.10.0",
+    "sequelize": "^6.25.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20",
+    "sqlite3": "^5.1.2"
+  }
+}
