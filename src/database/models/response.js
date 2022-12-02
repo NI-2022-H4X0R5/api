@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true
             },
             score: {
-                type: DataTypes.STRING,
+                type: DataTypes.INTEGER,
                 allowNull: false
             },
             content: {
