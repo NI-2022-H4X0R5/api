@@ -13,7 +13,7 @@
 * GET `api/scores/:userId` -> Get user scores by id (**Auth**)
 
 ### Questions
-* GET `api/enigma/:ageRange` -> Get a random question by age range
+* GET `api/enigma/:ageRange` -> Get a random question by age range (if ageRange is "all", get all questions)
 * GET `api/enigma` -> Get a random question
 
 ### Authentication
@@ -25,3 +25,4 @@
 
 ### ist
 * GET `/api/ist` -> Get all ist with all information
+* POST `/api/ist` -> Add a new IST
