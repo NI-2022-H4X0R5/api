@@ -23,7 +23,6 @@ const models = require('../handlers/modelHandler')(sequelize, DataTypes);
 
 // Primary keys
 models.User.hasMany(models.Game, {foreignKey: 'userId', sourceKey: 'id'});
-models.User.hasMany(models.TempCode, {foreignKey: 'userId', sourceKey: 'id'});
 models.Question.hasMany(models.Attach, {foreignKey: 'questionId', sourceKey: 'id'});
 models.Question.hasMany(models.Response, {foreignKey: 'questionId', sourceKey: 'id'});
 models.Question.hasMany(models.TempCode, {foreignKey: 'questionId', sourceKey: 'id'});
