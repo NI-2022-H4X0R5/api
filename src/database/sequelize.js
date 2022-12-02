@@ -33,8 +33,11 @@ models.Question.hasMany(models.Score, {foreignKey: 'questionId', sourceKey: 'id'
 models.Game.hasMany(models.Score, {foreignKey: 'gameCode', sourceKey: 'code'});
 
 const sync = async () => {
-    await sequelize.sync({force: true});
-    await seed();
+    await sequelize.sync({force: process.env.DB_FORCE === "true"});
+    if(process.env.BD_SEED === "true"){
+        await seed();
+        console.log("Database seeded");
+    }
 }
 
 const seed = async () => {
