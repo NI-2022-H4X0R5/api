@@ -17,10 +17,7 @@ module.exports = (req, res, next) => {
                 user = user.toJSON();
                 delete user.password;
                 req.user = user;
-                models.Group.findOne({where: {id: user.groupId}}).then(group => {
-                    req.permissions = group.permissions;
-                    return next();
-                });
+                return next();
             });
         }
     });

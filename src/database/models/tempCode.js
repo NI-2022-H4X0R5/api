@@ -6,8 +6,12 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true
             },
             validate: {
-                type: DataTypes.STRING,
+                type: DataTypes.DATE,
                 allowNull: false,
+            },
+            sessionId: {
+                type: DataTypes.STRING,
+                allowNull: false
             }
         },
         {
