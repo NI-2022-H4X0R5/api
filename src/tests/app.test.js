@@ -12,9 +12,19 @@ describe("Test /api/users/:id route", () => {
 })
 
 describe("Test POST /api/users route", () => {
-    it("should return a response", async () => {
-        const password = await encrypt("password");
-        const response = await request.post("/api/users").send({username: "test", password: password});
-        expect(response.status).toBe(201)
+    it("should return a response", () => {
+        encrypt("password").then(password => {
+            request.post("/api/users").send({username: "test", password: password}).then(res => {
+                expect(res.status).toBe(201)
+            });
+        });
+    });
+});
+
+describe("Test GET /api/ist route", () => {
+    it("should return a response", () => {
+        request.get("/api/ist").then(res => {
+            expect(res.status).toBe(200)
+        });
     });
 });
