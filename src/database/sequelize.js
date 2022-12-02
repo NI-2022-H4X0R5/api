@@ -1,6 +1,8 @@
 const { Sequelize, DataTypes } = require('sequelize')
 const {encrypt} = require('../tools/encryption');
 
+const mockIST = require('../resources/mockIST');
+
 let sequelize;
 const type = process.env.DB_TYPE || 'sqlite';
 const logging = process.env.DB_LOGGING || false;
@@ -34,13 +36,26 @@ const sync = async () => {
     await seed();
 }
 
-const seed = () => {
-    return sequelize.sync({force: true}).then(async _ => {
+const seed = async () => {
+    await sequelize.sync({force: true}).then(async _ => {
         return models.User.create({
             username: "root",
             password: await encrypt("root")
         });
     });
+    await models.IST.create({
+        name: mockIST[0].name,
+        description: mockIST[0].description,
+        transmission: mockIST[0].transmission,
+        symptoms: mockIST[0].symptoms,
+        treatments: mockIST[0].treatments,
+        incubation_time: mockIST[0].incubation_time,
+        risks: mockIST[0].risks,
+        affected_pop: mockIST[0].affected_pop,
+        stats: mockIST[0].stats,
+        screening: mockIST[0].screening,
+        links: mockIST[0].link
+    })
 }
 
 module.exports = {
