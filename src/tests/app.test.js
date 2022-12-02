@@ -28,3 +28,19 @@ describe("Test GET /api/ist route", () => {
         });
     });
 });
+
+describe("Test GET /api/questions route", () => {
+    it("should return a response", () => {
+        request.get("/api/questions").then(res => {
+            expect(res.status).toBe(200)
+        });
+    });
+});
+
+describe("Test GET /api/questions/:ageRange route", () => {
+    it("should return a response", () => {
+        request.get("/api/questions/adult").then(res => {
+            expect(res.status).toBe(200)
+        });
+    });
+});

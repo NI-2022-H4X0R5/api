@@ -7,8 +7,7 @@ module.exports = (sequelize, DataTypes) => {
             },
             score: {
                 type: DataTypes.STRING,
-                allowNull: false,
-                unique: true
+                allowNull: false
             },
             content: {
                 type: DataTypes.STRING,

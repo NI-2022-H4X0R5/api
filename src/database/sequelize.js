@@ -2,6 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize')
 const {encrypt} = require('../tools/encryption');
 
 const mockIST = require('../resources/mockIST');
+const mockQuestions = require('../resources/mockQuestions');
 
 let sequelize;
 const type = process.env.DB_TYPE || 'sqlite';
@@ -56,6 +57,20 @@ const seed = async () => {
         screening: mockIST[0].screening,
         links: mockIST[0].link
     })
+    await models.Question.create({
+        name: mockQuestions[0].name,
+        type: mockQuestions[0].type,
+        ageRange: mockQuestions[0].ageRange,
+        hintLabel: mockQuestions[0].hintLabel,
+        hintContent: mockQuestions[0].hintContent
+    })
+    for(let response of mockQuestions[0].responses){
+        await models.Response.create({
+            questionId: 1,
+            content: response.content,
+            score: response.score
+        });
+    }
 }
 
 module.exports = {
