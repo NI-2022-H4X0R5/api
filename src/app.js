@@ -5,9 +5,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const {sync} = require('./database/sequelize');
 
-// Init database
-
-
 const app = express();
 
 // Init commons middlewares
