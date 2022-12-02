@@ -1,8 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Game', {
             code: {
-                type: DataTypes.INTEGER,
-                autoIncrement: true,
+                type: DataTypes.STRING,
                 primaryKey: true
             }
         },

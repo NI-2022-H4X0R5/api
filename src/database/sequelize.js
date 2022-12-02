@@ -14,7 +14,7 @@ if(type === "sqlite"){
         logging: logging === "true"
     });
 }else{
-    sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
+    sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
         host: process.env.DB_HOST,
         dialect: process.env.DB_TYPE,
         logging: process.env.DB_LOGGING === "true"
@@ -33,8 +33,11 @@ models.Question.hasMany(models.Score, {foreignKey: 'questionId', sourceKey: 'id'
 models.Game.hasMany(models.Score, {foreignKey: 'gameCode', sourceKey: 'code'});
 
 const sync = async () => {
-    await sequelize.sync({force: true});
-    await seed();
+    await sequelize.sync({force: process.env.DB_FORCE === "true"});
+    if(process.env.BD_SEED === "true"){
+        await seed();
+        console.log("Database seeded");
+    }
 }
 
 const seed = async () => {
@@ -44,33 +47,39 @@ const seed = async () => {
             password: await encrypt("root")
         });
     });
-    await models.IST.create({
-        name: mockIST[0].name,
-        description: mockIST[0].description,
-        transmission: mockIST[0].transmission,
-        symptoms: mockIST[0].symptoms,
-        treatments: mockIST[0].treatments,
-        incubation_time: mockIST[0].incubation_time,
-        risks: mockIST[0].risks,
-        affected_pop: mockIST[0].affected_pop,
-        stats: mockIST[0].stats,
-        screening: mockIST[0].screening,
-        links: mockIST[0].link
-    })
-    await models.Question.create({
-        name: mockQuestions[0].name,
-        type: mockQuestions[0].type,
-        ageRange: mockQuestions[0].ageRange,
-        hintLabel: mockQuestions[0].hintLabel,
-        hintContent: mockQuestions[0].hintContent
-    })
-    for(let response of mockQuestions[0].responses){
-        await models.Response.create({
-            questionId: 1,
-            content: response.content,
-            score: response.score
-        });
+    for(let question of mockIST){
+        await models.IST.create({
+            name: question.name,
+            description: question.description,
+            transmission: question.transmission,
+            symptoms: question.symptoms,
+            treatments: question.treatments,
+            incubation_time: question.incubation_time,
+            risks: question.risks,
+            affected_pop: question.affected_pop,
+            stats: question.stats,
+            screening: question.screening,
+            links: question.link
+        })
     }
+    for(let question of mockQuestions){
+        const createdQuestion = await models.Question.create({
+            name: question.name,
+            type: question.type,
+            content: question.content,
+            ageRange: question.ageRange,
+            hintLabel: question.hintLabel,
+            hintContent: question.hintContent
+        })
+        for(let response of question.responses){
+            await models.Response.create({
+                questionId: createdQuestion.id,
+                content: response.content,
+                score: response.score
+            });
+        }
+    }
+
 }
 
 module.exports = {
