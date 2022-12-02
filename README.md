@@ -13,8 +13,9 @@
 * GET `api/scores/:userId` -> Get user scores by id (**Auth**)
 
 ### Questions
-* GET `api/enigma/:ageRange` -> Get a random question by age range (if ageRange is "all", get all questions)
-* GET `api/enigma` -> Get a random question
+* POST `api/questions` -> Add a new questions and it's responses
+* GET `api/questions/:ageRange` -> Get a random question by age range (if ageRange is "all", get all questions)
+* GET `api/questions` -> Get a random question
 
 ### Authentication
 * POST `api/login` -> Authenticate a user (JSON required: username, password)
